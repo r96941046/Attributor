@@ -7,6 +7,7 @@
 //
 
 #import "AttributorViewController.h"
+#import "TextStatsViewController.h" // in fact is part of the view, ok to import here
 
 @interface AttributorViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *body;
@@ -16,6 +17,16 @@
 @end
 
 @implementation AttributorViewController
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"Analyze Text"]) {
+        if ([segue.destinationViewController isKindOfClass:[TextStatsViewController class]]) {
+            TextStatsViewController *tsvc = (TextStatsViewController *)segue.destinationViewController;
+            tsvc.textToAnalize = self.body.textStorage;
+        }
+    }
+}
 
 - (IBAction)changeBodySelectionColor:(UIButton *)sender {
     
